@@ -1674,6 +1674,7 @@ GameObject:
   - component: {fileID: 1578026880}
   - component: {fileID: 1578026879}
   - component: {fileID: 1578026878}
+  - component: {fileID: 1578026882}
   m_Layer: 0
   m_Name: idle-1
   m_TagString: Untagged
@@ -1970,7 +1971,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveSpeed: 6
-  jumpForce: 12
+  jumpForce: 8
   groundCheck: {fileID: 2076570608}
   groundCheckRadius: 0.2
   groundLayer:
@@ -2003,6 +2004,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1578026882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578026874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 116029cd55dd98c4e885f0bae8c1488d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMelee
+  attackCooldown: 0.3
 --- !u!1 &2076570607
 GameObject:
   m_ObjectHideFlags: 0
