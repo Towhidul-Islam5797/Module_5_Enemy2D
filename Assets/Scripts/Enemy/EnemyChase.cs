@@ -7,15 +7,21 @@ public class EnemyChase : MonoBehaviour
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float stopDistance = 1.2f;
 
+    [Header("Ground Check")]
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundCheckRadius = 0.2f;
+    [SerializeField] private LayerMask groundLayer;
+
     [Header("Animation")]
     [SerializeField] private Animator animator;
 
-    private static readonly int IsMovingParam = Animator.StringToHash("IsMoving");
+    private static readonly int SpeedParam = Animator.StringToHash("Speed");
+    private static readonly int IsGroundedParam = Animator.StringToHash("IsGrounded");
 
     private Rigidbody2D rb;
     private Transform target;
     private bool facingRight = true;
-    private bool isMoving;
+    private bool isGrounded;
 
     private void Awake()
     {
@@ -39,6 +45,7 @@ public class EnemyChase : MonoBehaviour
 
     private void Update()
     {
+        UpdateGroundedState();
         UpdateFacing();
         UpdateAnimator();
     }
@@ -52,7 +59,7 @@ public class EnemyChase : MonoBehaviour
     {
         if (target == null)
         {
-            isMoving = false;
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
             return;
         }
 
@@ -61,13 +68,16 @@ public class EnemyChase : MonoBehaviour
         if (Mathf.Abs(offsetX) <= stopDistance)
         {
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-            isMoving = false;
             return;
         }
 
         float xSpeed = Mathf.Sign(offsetX) * moveSpeed;
         rb.linearVelocity = new Vector2(xSpeed, rb.linearVelocity.y);
-        isMoving = true;
+    }
+
+    private void UpdateGroundedState()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
     }
 
     private void UpdateFacing()
@@ -92,6 +102,15 @@ public class EnemyChase : MonoBehaviour
 
     private void UpdateAnimator()
     {
-        animator.SetBool(IsMovingParam, isMoving);
+        float normalizedSpeed = Mathf.Abs(rb.linearVelocity.x) / moveSpeed;
+        animator.SetFloat(SpeedParam, normalizedSpeed);
+        animator.SetBool(IsGroundedParam, isGrounded);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (groundCheck == null) return;
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
     }
 }
