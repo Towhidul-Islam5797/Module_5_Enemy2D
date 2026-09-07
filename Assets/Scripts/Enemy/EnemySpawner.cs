@@ -1,6 +1,5 @@
 #region v1
 
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -39,7 +38,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (enemyPrefab == null || spawnPoints.Length == 0) return;
 
-        Transform point = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        Transform point = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
         Instantiate(enemyPrefab, point.position, Quaternion.identity);
     }
 }
