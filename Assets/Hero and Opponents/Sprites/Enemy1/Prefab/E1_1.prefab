@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 8877225251698210228}
   - component: {fileID: 998844768496474370}
   - component: {fileID: 3293558695372648681}
+  - component: {fileID: 3330705111160926815}
   m_Layer: 7
   m_Name: E1_1
   m_TagString: Untagged
@@ -251,4 +252,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
   attackRange: 1.2
   attackCooldown: 0.6
+  damage: 10
   animator: {fileID: 3894005801537896053}
+--- !u!114 &3330705111160926815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6867175162284574327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fd171e357eb4dc43a2c982a20b15648, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHealth: 100
+  animator: {fileID: 3894005801537896053}
+  destroyOnDeath: 1
+  destroyDelay: 1.5
