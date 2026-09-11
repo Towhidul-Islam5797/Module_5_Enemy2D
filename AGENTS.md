@@ -2,7 +2,7 @@
 - Project name: Module_5_Enemy2D
 - Unity version: Unity 6000.3.10f1
 - Active game object:
-  - Name: E1_1
-  - Tag: Untagged
-  - Layer: Enemy
+  - Name: Player
+  - Tag: Player
+  - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
