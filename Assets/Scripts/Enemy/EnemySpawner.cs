@@ -1,5 +1,51 @@
 #region v1
 
+//using System.Collections;
+//using UnityEngine;
+
+//public class EnemySpawner : MonoBehaviour
+//{
+//    [SerializeField] private GameObject enemyPrefab;
+//    [SerializeField] private Transform[] spawnPoints;
+//    [SerializeField] private int enemiesPerWave = 5;
+//    [SerializeField] private float spawnDelay = 1.5f;
+//    [SerializeField] private float waveDelay = 3f;
+
+//    private void Start()
+//    {
+//        StartCoroutine(RunWaves());
+//    }
+
+//    private IEnumerator RunWaves()
+//    {
+//        while (true)
+//        {
+//            yield return SpawnWave();
+//            yield return new WaitForSeconds(waveDelay);
+//        }
+//    }
+
+//    private IEnumerator SpawnWave()
+//    {
+//        for (int i = 0; i < enemiesPerWave; i++)
+//        {
+//            SpawnEnemy();
+//            yield return new WaitForSeconds(spawnDelay);
+//        }
+//    }
+
+//    private void SpawnEnemy()
+//    {
+//        if (enemyPrefab == null || spawnPoints.Length == 0) return;
+
+//        Transform point = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
+//        Instantiate(enemyPrefab, point.position, Quaternion.identity);
+//    }
+//}
+#endregion
+
+#region v2
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,8 +54,11 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private int enemiesPerWave = 5;
+    [SerializeField] private int totalWaves = 5;
     [SerializeField] private float spawnDelay = 1.5f;
     [SerializeField] private float waveDelay = 3f;
+
+    public event Action OnAllWavesComplete;
 
     private void Start()
     {
@@ -18,11 +67,13 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator RunWaves()
     {
-        while (true)
+        for (int wave = 0; wave < totalWaves; wave++)
         {
             yield return SpawnWave();
             yield return new WaitForSeconds(waveDelay);
         }
+
+        OnAllWavesComplete?.Invoke();
     }
 
     private IEnumerator SpawnWave()
