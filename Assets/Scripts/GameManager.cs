@@ -1,4 +1,5 @@
 #region v1
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text stateText;
+
+    [Header("Game End")]
+    [SerializeField] private float freezeDelay = 1.5f;
 
     private int score;
     private bool gameEnded;
@@ -101,6 +105,12 @@ public class GameManager : MonoBehaviour
             stateText.text = message;
         }
 
+        StartCoroutine(FreezeAfterDelay());
+    }
+
+    private IEnumerator FreezeAfterDelay()
+    {
+        yield return new WaitForSecondsRealtime(freezeDelay);
         Time.timeScale = 0f;
     }
 

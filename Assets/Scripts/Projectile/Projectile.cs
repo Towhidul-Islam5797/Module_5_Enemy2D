@@ -122,6 +122,7 @@ public class Projectile : MonoBehaviour
     private ProjectilePool sourcePool;
     private GameObject owner;
     private float lifetimeTimer;
+    private bool hasReturned;
 
     private void Awake()
     {
@@ -133,6 +134,7 @@ public class Projectile : MonoBehaviour
         sourcePool = pool;
         this.owner = owner;
         lifetimeTimer = lifetime;
+        hasReturned = false;
         rb.linearVelocity = direction.normalized * speed;
     }
 
@@ -153,6 +155,9 @@ public class Projectile : MonoBehaviour
 
     private void ReturnToPool()
     {
+        if (hasReturned) return;
+
+        hasReturned = true;
         rb.linearVelocity = Vector2.zero;
         sourcePool.Release(this);
     }

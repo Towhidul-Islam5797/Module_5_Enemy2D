@@ -144,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 23483867}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9313,7 +9313,7 @@ MonoBehaviour:
   maxHealth: 100
   animator: {fileID: 1578026875}
   destroyOnDeath: 0
-  destroyDelay: 1.5
+  destroyDelay: 3
 --- !u!1 &1660558711
 GameObject:
   m_ObjectHideFlags: 0
@@ -9886,6 +9886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   scoreText: {fileID: 330361618}
   stateText: {fileID: 398547092}
+  freezeDelay: 1.5
 --- !u!1 &1943529500
 GameObject:
   m_ObjectHideFlags: 0
