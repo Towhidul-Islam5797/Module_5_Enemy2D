@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2124491893224174480}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,8 @@ GameObject:
   - component: {fileID: 3687843593934700031}
   - component: {fileID: 8877225251698210228}
   - component: {fileID: 998844768496474370}
-  m_Layer: 0
+  - component: {fileID: 3293558695372648681}
+  m_Layer: 7
   m_Name: E1_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,9 +228,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyChase
   moveSpeed: 3
   stopDistance: 1.2
+  detectionRange: 5
+  patrolSpeed: 1.5
+  patrolRange: 2
   groundCheck: {fileID: 2124491893224174480}
   groundCheckRadius: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  animator: {fileID: 3894005801537896053}
+--- !u!114 &3293558695372648681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6867175162284574327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 783d5f25f0600cc45bb2d57f5b478274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
+  attackRange: 1.2
+  attackCooldown: 0.6
   animator: {fileID: 3894005801537896053}

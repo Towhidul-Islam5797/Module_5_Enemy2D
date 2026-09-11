@@ -43,36 +43,206 @@
 #endregion
 
 #region v2
-using UnityEngine;
-using UnityEngine.InputSystem;
+//using UnityEngine;
+//using UnityEngine.InputSystem;
 
-public class PlayerMelee : MonoBehaviour
+//public class PlayerMelee : MonoBehaviour
+//{
+//    [SerializeField] private float attackCooldown = 0.5f;
+//    [SerializeField] private float attackDuration = 0.4f;
+//    [SerializeField] private Animator animator;
+
+//    private static readonly int AttackTrigger = Animator.StringToHash("Attack");
+
+//    private float cooldownTimer;
+//    private float attackTimer;
+
+//    public bool IsAttacking { get; private set; }
+
+//    private void OnAttack(InputValue value)
+//    {
+//        if (!value.isPressed) return;
+//        if (cooldownTimer > 0f) return;
+
+//        PerformAttack();
+//        cooldownTimer = attackCooldown;
+//    }
+
+//    private void Update()
+//    {
+//        UpdateCooldown();
+//        UpdateAttackState();
+//    }
+
+//    private void UpdateCooldown()
+//    {
+//        if (cooldownTimer > 0f)
+//        {
+//            cooldownTimer -= Time.deltaTime;
+//        }
+//    }
+
+//    private void UpdateAttackState()
+//    {
+//        if (!IsAttacking) return;
+
+//        attackTimer -= Time.deltaTime;
+
+//        if (attackTimer <= 0f)
+//        {
+//            IsAttacking = false;
+//        }
+//    }
+
+//    private void PerformAttack()
+//    {
+//        IsAttacking = true;
+//        attackTimer = attackDuration;
+//        animator.SetTrigger(AttackTrigger);
+//    }
+//}
+#endregion
+
+#region v3
+//using UnityEngine;
+//using UnityEngine.InputSystem;
+
+//public class PlayerMelee : MonoBehaviour
+//{
+//    [SerializeField] private float attackCooldown = 0.5f;
+//    [SerializeField] private float attackDuration = 0.4f;
+//    [SerializeField] private Animator animator;
+
+//    [Header("Hitbox")]
+//    [SerializeField] private Transform attackPoint;
+//    [SerializeField] private float attackRange = 0.8f;
+//    [SerializeField] private int damage = 10;
+
+//    private static readonly int AttackTrigger = Animator.StringToHash("Attack");
+
+//    private float cooldownTimer;
+//    private float attackTimer;
+
+//    public bool IsAttacking { get; private set; }
+
+//    private void OnAttack(InputValue value)
+//    {
+//        if (!value.isPressed) return;
+//        if (cooldownTimer > 0f) return;
+
+//        PerformAttack();
+//        cooldownTimer = attackCooldown;
+//    }
+
+//    private void Update()
+//    {
+//        UpdateCooldown();
+//        UpdateAttackState();
+//    }
+
+//    private void UpdateCooldown()
+//    {
+//        if (cooldownTimer > 0f)
+//        {
+//            cooldownTimer -= Time.deltaTime;
+//        }
+//    }
+
+//    private void UpdateAttackState()
+//    {
+//        if (!IsAttacking) return;
+
+//        attackTimer -= Time.deltaTime;
+
+//        if (attackTimer <= 0f)
+//        {
+//            IsAttacking = false;
+//        }
+//    }
+
+//    private void PerformAttack()
+//    {
+//        IsAttacking = true;
+//        attackTimer = attackDuration;
+//        animator.SetTrigger(AttackTrigger);
+//        ApplyDamage();
+//    }
+
+//    private void ApplyDamage()
+//    {
+//        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange);
+
+//        foreach (Collider2D hit in hits)
+//        {
+//            Health health = hit.GetComponent<Health>();
+
+//            if (health != null)
+//            {
+//                health.TakeDamage(damage);
+//            }
+//        }
+//    }
+
+//    private void OnDrawGizmosSelected()
+//    {
+//        if (attackPoint == null) return;
+//        Gizmos.color = Color.red;
+//        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+//    }
+//}
+#endregion
+
+#region v4
+using UnityEngine;
+
+public class EnemyAttack : MonoBehaviour
 {
-    [SerializeField] private float attackCooldown = 0.5f;
-    [SerializeField] private float attackDuration = 0.4f;
+    #region Fields
+
+    [SerializeField] private float attackRange = 1.2f;
+    [SerializeField] private float attackCooldown = 0.6f;
+    [SerializeField] private int damage = 10;
     [SerializeField] private Animator animator;
 
     private static readonly int AttackTrigger = Animator.StringToHash("Attack");
 
+    private Transform target;
+    private Health targetHealth;
     private float cooldownTimer;
-    private float attackTimer;
 
-    public bool IsAttacking { get; private set; }
+    #endregion
 
-    private void OnAttack(InputValue value)
+    #region Unity Lifecycle
+
+    private void Start()
     {
-        if (!value.isPressed) return;
-        if (cooldownTimer > 0f) return;
-
-        PerformAttack();
-        cooldownTimer = attackCooldown;
+        FindTarget();
     }
 
     private void Update()
     {
         UpdateCooldown();
-        UpdateAttackState();
+        TryAttack();
     }
+
+    #endregion
+
+    #region Target Detection
+
+    private void FindTarget()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null)
+        {
+            target = player.transform;
+            targetHealth = player.GetComponent<Health>();
+        }
+    }
+
+    #endregion
+
+    #region Attack
 
     private void UpdateCooldown()
     {
@@ -82,23 +252,29 @@ public class PlayerMelee : MonoBehaviour
         }
     }
 
-    private void UpdateAttackState()
+    private void TryAttack()
     {
-        if (!IsAttacking) return;
+        if (target == null || cooldownTimer > 0f) return;
 
-        attackTimer -= Time.deltaTime;
+        float distanceToTarget = Mathf.Abs(target.position.x - transform.position.x);
 
-        if (attackTimer <= 0f)
+        if (distanceToTarget <= attackRange)
         {
-            IsAttacking = false;
+            PerformAttack();
         }
     }
 
     private void PerformAttack()
     {
-        IsAttacking = true;
-        attackTimer = attackDuration;
         animator.SetTrigger(AttackTrigger);
+        cooldownTimer = attackCooldown;
+
+        if (targetHealth != null)
+        {
+            targetHealth.TakeDamage(damage);
+        }
     }
+
+    #endregion
 }
 #endregion
