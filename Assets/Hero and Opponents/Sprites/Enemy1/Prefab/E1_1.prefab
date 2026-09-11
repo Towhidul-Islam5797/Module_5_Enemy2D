@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 998844768496474370}
   - component: {fileID: 3293558695372648681}
   - component: {fileID: 3330705111160926815}
+  - component: {fileID: 6964206747223168036}
   m_Layer: 7
   m_Name: E1_1
   m_TagString: Untagged
@@ -227,9 +228,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d51be0b245bbae4394c80e35dac7d0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyChase
-  moveSpeed: 3
+  moveSpeed: 1.5
   stopDistance: 1.2
-  detectionRange: 5
+  detectionRange: 4
   patrolSpeed: 1.5
   patrolRange: 2
   groundCheck: {fileID: 2124491893224174480}
@@ -266,7 +267,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fd171e357eb4dc43a2c982a20b15648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 100
+  maxHealth: 30
   animator: {fileID: 3894005801537896053}
   destroyOnDeath: 1
-  destroyDelay: 3.5
+  destroyDelay: 10
+--- !u!114 &6964206747223168036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6867175162284574327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5ca18f62cc092649bd51f0f788b2300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyScoreReward
+  scoreValue: 10

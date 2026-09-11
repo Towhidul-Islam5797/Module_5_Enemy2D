@@ -9283,6 +9283,9 @@ MonoBehaviour:
   attackPoint: {fileID: 1824084790}
   attackRange: 0.8
   damage: 10
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &1578026883
 MonoBehaviour:
   m_ObjectHideFlags: 0

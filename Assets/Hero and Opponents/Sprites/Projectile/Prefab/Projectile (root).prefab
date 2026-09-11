@@ -97,7 +97,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0.06, y: 0.09}
-  m_Radius: 0.3216756
+  m_Radius: 0.4
 --- !u!114 &7749348018965325522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,6 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   speed: 10
   lifetime: 2
+  damage: 10
 --- !u!1001 &130679500682602590
 PrefabInstance:
   m_ObjectHideFlags: 0

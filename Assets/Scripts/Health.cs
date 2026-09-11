@@ -96,6 +96,7 @@ public class Health : MonoBehaviour
         if (isDead) return;
 
         currentHealth -= amount;
+        Debug.Log(gameObject.name + ": Took " + amount + " damage, health = " + currentHealth);
 
         if (currentHealth <= 0)
         {
@@ -107,6 +108,7 @@ public class Health : MonoBehaviour
     {
         isDead = true;
         animator.SetTrigger(DeadTrigger);
+        Debug.Log(gameObject.name + ": Died");
         OnDeath?.Invoke();
 
         if (destroyOnDeath)
