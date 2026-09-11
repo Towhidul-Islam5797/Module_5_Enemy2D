@@ -48,6 +48,67 @@
 
 #region v2
 
+//using UnityEngine;
+
+//[RequireComponent(typeof(Rigidbody2D))]
+//public class Projectile : MonoBehaviour
+//{
+//    [SerializeField] private float speed = 10f;
+//    [SerializeField] private float lifetime = 2f;
+//    [SerializeField] private int damage = 10;
+
+//    private Rigidbody2D rb;
+//    private ProjectilePool sourcePool;
+//    private float lifetimeTimer;
+
+//    private void Awake()
+//    {
+//        rb = GetComponent<Rigidbody2D>();
+//    }
+
+//    public void Launch(Vector2 direction, ProjectilePool pool)
+//    {
+//        sourcePool = pool;
+//        lifetimeTimer = lifetime;
+//        rb.linearVelocity = direction.normalized * speed;
+//    }
+
+//    private void Update()
+//    {
+//        UpdateLifetime();
+//    }
+
+//    private void UpdateLifetime()
+//    {
+//        lifetimeTimer -= Time.deltaTime;
+
+//        if (lifetimeTimer <= 0f)
+//        {
+//            ReturnToPool();
+//        }
+//    }
+
+//    private void ReturnToPool()
+//    {
+//        rb.linearVelocity = Vector2.zero;
+//        sourcePool.Release(this);
+//    }
+
+//    private void OnTriggerEnter2D(Collider2D other)
+//    {
+//        Health health = other.GetComponent<Health>();
+
+//        if (health != null)
+//        {
+//            health.TakeDamage(damage);
+//            ReturnToPool();
+//        }
+//    }
+//}
+
+#endregion
+
+#region v3
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -59,6 +120,7 @@ public class Projectile : MonoBehaviour
 
     private Rigidbody2D rb;
     private ProjectilePool sourcePool;
+    private GameObject owner;
     private float lifetimeTimer;
 
     private void Awake()
@@ -66,9 +128,10 @@ public class Projectile : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Launch(Vector2 direction, ProjectilePool pool)
+    public void Launch(Vector2 direction, ProjectilePool pool, GameObject owner)
     {
         sourcePool = pool;
+        this.owner = owner;
         lifetimeTimer = lifetime;
         rb.linearVelocity = direction.normalized * speed;
     }
@@ -96,6 +159,8 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject == owner) return;
+
         Health health = other.GetComponent<Health>();
 
         if (health != null)
@@ -105,5 +170,4 @@ public class Projectile : MonoBehaviour
         }
     }
 }
-
 #endregion
